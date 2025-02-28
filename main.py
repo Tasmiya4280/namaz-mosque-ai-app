@@ -5,11 +5,23 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from utils import  Prayers
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 @app.post("/upload-image/")
@@ -53,7 +65,7 @@ async def upload_image(file: UploadFile = File(...)):
     )
     response = completion.choices[0].message.parsed
     response_dict = response.model_dump()
-    
+
     return JSONResponse(
         content={"status": "success", "response": response_dict},
         status_code=200
