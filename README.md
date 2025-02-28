@@ -1,7 +1,6 @@
 # Mosque-clock-ai
 
-This FastAPI application allows users to upload an image of a clock displaying prayer times. The API processes the image using OpenAI's GPT-4o model to extract and return the prayer times in a structured JSON format.
-
+This FastAPI application allows users to upload recent time,time zone and an image of a clock displaying prayer times. The API processes the image using OpenAI's GPT-4o model to extract and return the prayer times in a structured JSON format.
 
 ## Clone the repository
 ```bash
@@ -13,68 +12,72 @@ git clone https://github.com/Shrhawk/mosque-clock-ai
 cd mosque-clock-ai
 ```
 
-Set Up Virtual Environment
+## Set Up Poetry
 
-## Create a virtual environment
+### Install Poetry (if not already installed)
 ```bash
-python -m venv env
+pip install poetry
 ```
 
-## Activate the virtual environment (Linux/macOS)
+## Install Dependencies
 ```bash
-source env/bin/activate
+poetry install
 ```
 
-## Activate the virtual environment (Windows)
-env\Scripts\activate
+## Set Up Environment Variables
 
-
-## Install required Python packages
+### Create a `.env` file and add your OpenAI API key
 ```bash
-pip install -r requirements.txt
-```
-Set Up Environment Variables
-
-## Create a .env file and add your OpenAI API key
-echo "OPENAI_API_KEY=your_api_key_here" > .env
-
-
-## Start the FastAPI server
-```bash
-uvicorn main:app --reload
+"OPENAI_API_KEY=your_api_key_here"
 ```
 
-API Usage
+## Start the FastAPI Server
+```bash
+poetry run uvicorn mosque_clock_ai.main:app --reload
+```
 
-Upload an Image
+## API Usage
 
-## Endpoint
+### Upload an Image
 
+#### Endpoint
+```
 POST /upload-image/
-
-Request
-
-- Upload an image file  of a clock displaying prayer times.
-
-Example
-
-```bash
-'POST' \
-  'http://127.0.0.1:8000/upload-image/'
 ```
 
-Example Response
+#### Request
+- Upload an image file of a clock displaying prayer times.
 
+#### Example
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/upload-image/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@sample_image.jpeg' \
+  -F 'time=12:00 PM' \
+  -F 'timezone=UTC'
+```
+
+#### Example Response
+```json
 {
   "status": "success",
   "response": {
-    "Fajar": "05:30 AM",
-    "Zohar": "12:45 PM",
-    "Asar": "04:15 PM",
-    "Maghrib": "06:30 PM",
-    "Isha": "08:00 PM",
-    "Jumma": "01:15 PM"
+    "Fajar": "5:30",
+    "Zohar": "1:30",
+    "Asar": "5:00",
+    "Maghrib": "6:27",
+    "Isha": "8:30",
+    "Jumma": "1:30",
+    "Next_Prayer_Time": "Fajar at 5:30"
   }
 }
+```
 
+#### Swagger Docs
 
+#### Example
+```
+  'http://127.0.0.1:8000/docs
+```
