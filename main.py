@@ -2,7 +2,7 @@ import base64
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from utils import  Prayers
 
@@ -53,8 +53,7 @@ async def upload_image(file: UploadFile = File(...)):
     )
     response = completion.choices[0].message.parsed
     response_dict = response.model_dump()
-    print("\n\n Response After dumping:::", response)
-
+    
     return JSONResponse(
         content={"status": "success", "response": response_dict},
         status_code=200
