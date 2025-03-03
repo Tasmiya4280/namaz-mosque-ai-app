@@ -132,6 +132,24 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.6.10)", "diff-cover (>=9.2.1)",
 typing = ["typing-extensions (>=4.12.2)"]
 
 [[package]]
+name = "gunicorn"
+version = "23.0.0"
+description = "WSGI HTTP Server for UNIX"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+packaging = "*"
+
+[package.extras]
+eventlet = ["eventlet (>=0.24.1,!=0.36.0)"]
+gevent = ["gevent (>=1.4.0)"]
+setproctitle = ["setproctitle"]
+testing = ["gevent", "eventlet", "coverage", "pytest", "pytest-cov"]
+tornado = ["tornado (>=0.2)"]
+
+[[package]]
 name = "h11"
 version = "0.14.0"
 description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
@@ -460,7 +478,7 @@ python-versions = ">=3.8"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "8795d21b82fd1ff17c8303e42eec49c62037ca56a782faf10ae03610722ffac8"
+content-hash = "798339d64643f7d0e86d9eddd1ccef241e75c8118a2f506bf2c5b655334cf2f5"
 
 [metadata.files]
 annotated-types = []
@@ -475,6 +493,7 @@ distro = []
 exceptiongroup = []
 fastapi = []
 filelock = []
+gunicorn = []
 h11 = []
 httpcore = []
 httpx = []

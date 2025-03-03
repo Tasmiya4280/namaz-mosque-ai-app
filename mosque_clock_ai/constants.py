@@ -1,7 +1,6 @@
 import os
 
 from dotenv import load_dotenv
-from openai import OpenAI
 
 load_dotenv()
 
@@ -15,4 +14,5 @@ class Const:
     - If you are unable to extract the timings from image then return "None" in time value
     - Here is the time and time zone given in triple backticks:
     """
-    CLIENT = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    API_KEY = os.getenv("OPENAI_API_KEY")
+    TIMEOUT_SECONDS = 300

@@ -9,6 +9,7 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 from starlette.requests import Request
 
+from .constants import Const
 from .models import ImageUpload
 from .utils import v_llm
 
@@ -23,8 +24,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-TIMEOUT_SECONDS = 300
 
 
 @app.exception_handler(RateLimitExceeded)
@@ -77,7 +76,7 @@ async def upload_image(
         base64_image = base64.b64encode(image_data).decode("utf-8")
         response = await asyncio.wait_for(
             v_llm(base64_image, form_data.time, form_data.timezone),
-            timeout=TIMEOUT_SECONDS,
+            timeout=Const.TIMEOUT_SECONDS,
         )
 
         return JSONResponse(

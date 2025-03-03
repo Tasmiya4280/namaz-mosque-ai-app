@@ -1,16 +1,20 @@
-import asyncio
+from dotenv import load_dotenv
+from openai import AsyncOpenAI  # Use Async client
 
 from .constants import Const
 from .models import Prayers
 
-client = Const.CLIENT
+load_dotenv()
+client = AsyncOpenAI(api_key=Const.API_KEY)
 
 
-async def v_llm(base64_image, time, timezone):
-    prompt = Const.PROMT + f""" ```Time:{time}``` and ```Time Zone:{timezone}```"""
+async def v_llm(base64_image: str, time: str, timezone: str):
+    """Sends an image and time-related prompt to OpenAI API asynchronously."""
+    prompt = f"{Const.PROMT} ```Time: {time}``` and ```Time Zone: {timezone}```"
 
-    def sync_openai_request():
-        return client.beta.chat.completions.parse(
+    try:
+        # Directly await the API request
+        completion = await client.beta.chat.completions.parse(
             model="gpt-4o",
             messages=[
                 {
@@ -29,8 +33,7 @@ async def v_llm(base64_image, time, timezone):
             response_format=Prayers,
         )
 
-    # Run the OpenAI API call in a separate thread
-    completion = await asyncio.to_thread(sync_openai_request)
-    response_data = completion.choices[0].message.parsed
-    response = response_data.model_dump()
-    return response
+        return completion.choices[0].message.parsed.model_dump()
+
+    except Exception:
+        return {"error": "OpenAI API call failed:"}
