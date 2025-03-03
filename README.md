@@ -33,7 +33,7 @@ poetry install
 
 ## Start the FastAPI Server
 ```bash
-poetry run uvicorn mosque_clock_ai.main:app --reload
+poetry run gunicorn --worker-class=uvicorn.workers.UvicornWorker mosque_clock_ai.main:app --bind 0.0.0.0:8000
 ```
 
 ## API Usage
@@ -42,7 +42,7 @@ poetry run uvicorn mosque_clock_ai.main:app --reload
 
 #### Endpoint
 ```
-POST /upload-image/
+POST http://127.0.0.1:8000/upload-image/
 ```
 
 #### Request
