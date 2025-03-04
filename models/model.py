@@ -14,9 +14,6 @@ class Prayers(BaseModel):
     Next_Prayer_Time: str
 
 
-Prayers.model_rebuild()
-
-
 class ImageUpload(BaseModel):
     time: str
     timezone: str

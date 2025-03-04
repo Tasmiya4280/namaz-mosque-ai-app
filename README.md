@@ -26,14 +26,14 @@ poetry install
 
 ## Set Up Environment Variables
 
-### Create a `.env` file and add your OpenAI API key
+### Create a `.env` file and run this command to copy keys and after this add values against keys
 ```bash
-"OPENAI_API_KEY=your_api_key_here"
+cp sample_dotenv.txt .env
 ```
 
 ## Start the FastAPI Server
 ```bash
-poetry run gunicorn --worker-class=uvicorn.workers.UvicornWorker mosque_clock_ai.main:app --bind 0.0.0.0:8000
+poetry run gunicorn --worker-class=uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000
 ```
 
 ## API Usage
