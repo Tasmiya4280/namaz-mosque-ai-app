@@ -4,6 +4,10 @@ from fastapi import HTTPException, status
 from pydantic import BaseModel, validator
 
 
+class NextPrayer(BaseModel):
+    Prayer: str
+    Time: str
+
 class Prayers(BaseModel):
     Fajar: str
     Zohar: str
@@ -11,12 +15,14 @@ class Prayers(BaseModel):
     Maghrib: str
     Isha: str
     Jumma: str
-    Next_Prayer_Time: str
+    Next_Prayer: NextPrayer
+
 
 
 class ImageUpload(BaseModel):
     time: str
     timezone: str
+    day: str
 
     @validator("time")
     def validate_time(cls, value):

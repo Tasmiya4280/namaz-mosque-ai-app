@@ -56,7 +56,8 @@ curl -X 'POST' \
   -H 'Content-Type: multipart/form-data' \
   -F 'file=@sample_image.jpeg' \
   -F 'time=12:00 PM' \
-  -F 'timezone=UTC'
+  -F 'timezone=UTC' \
+  -F 'day=Sunday'
 ```
 
 #### Example Response
@@ -64,13 +65,16 @@ curl -X 'POST' \
 {
   "status": "success",
   "response": {
-    "Fajar": "5:30",
-    "Zohar": "1:30",
-    "Asar": "5:00",
-    "Maghrib": "6:27",
-    "Isha": "8:30",
-    "Jumma": "1:30",
-    "Next_Prayer_Time": "Fajar at 5:30"
+    "Fajar": "5:30 am",
+    "Zohar": "1:30 pm",
+    "Asar": "5:00 pm",
+    "Maghrib": "6:27 pm",
+    "Isha": "8:30 pm",
+    "Jumma": "1:30 pm",
+    "Next_Prayer": {
+      "Prayer": "Zohar",
+      "Time": "1:30 pm"
+    }
   }
 }
 ```

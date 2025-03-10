@@ -33,9 +33,9 @@ logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
 
-async def v_llm(base64_image: str, time: str, timezone: str):
+async def v_llm(base64_image: str, time: str, timezone: str, day:str):
     """Sends an image and time-related prompt to OpenAI API asynchronously."""
-    prompt = f"{Const.PROMT} ```Time: {time}``` and ```Time Zone: {timezone}```"
+    prompt = f"{Const.PROMPT}```Day: {day}``` ,```Time: {time}``` and ```Time Zone: {timezone}```"
 
     try:
         # Directly await the API request
@@ -57,6 +57,7 @@ async def v_llm(base64_image: str, time: str, timezone: str):
             ],
             timeout=int(TIMEOUT_SECONDS) if TIMEOUT_SECONDS is not None else 300,
             response_format=Prayers,
+            temperature=0,
         )
         logger.info("Request to OpenAI API successful.")
         return completion.choices[0].message.parsed.model_dump()

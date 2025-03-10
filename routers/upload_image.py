@@ -28,7 +28,7 @@ async def upload_image(
 
         image_data = await file.read()
         base64_image = base64.b64encode(image_data).decode("utf-8")
-        response = await v_llm(base64_image, form_data.time, form_data.timezone)
+        response = await v_llm(base64_image, form_data.time, form_data.timezone, form_data.day)
 
         return JSONResponse(
             content={"status": "success", "response": response},
