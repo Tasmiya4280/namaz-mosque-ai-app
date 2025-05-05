@@ -16,12 +16,12 @@ spec:
       labels:
         app: mosque-clock-api
     spec:
-      # imagePullSecrets:                   # <-- only if the image is private
-      #   - name: regcred
+      imagePullSecrets:                   # <-- only if the image is private
+        - name: regcred
       containers:
         - name: api
           image: mosque-clock-ai:latest   
-          imagePullPolicy: Never          # since I have just created the image locally and haven't pushed it to any image registry
+          imagePullPolicy: Always        # since I have just created the image locally and haven't pushed it to any image registry
           ports:
             - containerPort: 8000
               name: http
