@@ -7,10 +7,9 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
 spec:
-  ingressClassName: alb          
+  ingressClassName: alb
   rules:
     - host: <eks-load-balancer-dns>.elb.amazonaws.com  #replace that with the domain of the application
-  
       http:
         paths:
           - path: /(.*)

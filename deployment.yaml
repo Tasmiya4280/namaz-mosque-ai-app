@@ -6,7 +6,7 @@ metadata:
   labels:
     app: mosque-clock-api
 spec:
-  replicas: 3                             # tune for your traffic
+  replicas: 3                             
   revisionHistoryLimit: 3
   selector:
     matchLabels:
@@ -16,18 +16,18 @@ spec:
       labels:
         app: mosque-clock-api
     spec:
-      imagePullSecrets:                   # <-- only if the image is private
+      imagePullSecrets:                 
         - name: regcred
       containers:
         - name: api
           image: mosque-clock-ai:latest   
-          imagePullPolicy: Always        # since I have just created the image locally and haven't pushed it to any image registry
+          imagePullPolicy: Always      
           ports:
             - containerPort: 8000
               name: http
           envFrom:
             - secretRef:
-                name: mosque-clock-env            # see Secret below
+                name: mosque-clock-env            
           resources:
             requests:
               cpu: "100m"
@@ -37,7 +37,7 @@ spec:
               memory: "512Mi"
           readinessProbe:
             httpGet:
-              path: /openapi.json                       # or a lightweight /health route
+              path: /openapi.json                       
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10
